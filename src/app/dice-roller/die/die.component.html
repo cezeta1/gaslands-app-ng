@@ -1,0 +1,37 @@
+<p-card 
+  styleClass="
+    !bg-neutral-300 
+    !text-black 
+    relative
+    w-full 
+    h-full
+
+    [&>_.p-card-body]:w-full
+    [&>_.p-card-body]:h-full
+    [&>_.p-card-body]:items-center
+    [&>_.p-card-body]:justify-center
+    [&>_.p-card-body]:p-8
+    
+    [&>_.p-card-body]:[&>_.p-card-content]:flex
+    [&>_.p-card-body]:[&>_.p-card-content]:w-full
+  
+  "
+  [class.animate-shuffle]="isRolling()"
+  (click)="toggleLock()"
+>
+
+  @if (isLocked()) {
+    <div class="absolute inset-0 bg-gradient-to-bl from-black/70 to-transparent z-[5]"></div>
+    <p-chip 
+      icon="pi pi-lock"
+      class="absolute -top-2 -right-2 z-10 shadow-md shadow-black/40" 
+    />
+  }
+
+  <p-image
+    class="flex w-full h-full justify-center items-center"
+    [src]="currentFace()"
+    [alt]="currentValueEnum().toUpperCase()"
+  />
+</p-card>
+

@@ -1,0 +1,10 @@
+<p-button
+  text
+  size="small"
+  styleClass="border-0"
+  [outlined]="false"
+  [rounded]="rounded()"
+  [icon]="themeService.isDark() ? 'pi pi-moon' : 'pi pi-sun'" 
+  severity="secondary"
+  (onClick)="onDarkModeSwitch()" 
+/>
