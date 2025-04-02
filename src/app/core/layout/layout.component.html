@@ -1,25 +1,37 @@
-<div class="flex flex-col min-h-screen w-full gap-4">
+<div 
+  class="
+    flex flex-col justify-center 
+      
+    w-[100vw] min-h-[100vh] 
+    h-max md:h-fit
+    
+    overflow-x-hidden
+  "
+>
+    <!-- flex flex-col min-h-screen w-full gap-4 -->
   <p-toolbar styleClass="!p-2 !rounded-none">
     <ng-template #start>
       <p-avatar 
         [image]="avatarSrc()" 
         class="mx-2" 
         size="large" 
-        shape="circle" 
+        shape="circle"
       />
       
       <h1>Cezeta.</h1>
 
       <!-- <p-button icon="pi pi-upload" text severity="secondary" /> -->
     </ng-template>
+    
     <ng-template #center>
     </ng-template>
+
     <ng-template #end>
       <dark-mode-switch></dark-mode-switch>
     </ng-template>
   </p-toolbar>
   
-  <div class="flex-grow px-4 pb-4">
+  <div class="flex flex-grow px-4 pb-4">
     <ng-content></ng-content>
   </div>
 </div>

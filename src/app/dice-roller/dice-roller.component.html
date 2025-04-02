@@ -1,35 +1,34 @@
 <div 
   class="
-    host:bg-green-400
+    flex flex-col
     w-full h-full
     md:px-10
   "
 >
 
-  <h1 class="mb-6 text-2xl font-bold text-center">
+  <h1 class="mt-2 mb-6 text-2xl font-bold text-center">
     Gaslands Skid Dice Roller
   </h1>
 
-  <div
-    class="
-      grid grid-cols-[repeat(auto-fit,_minmax(100px,_1fr))] 
-      justify-items-center gap-4
-      md:grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))] 
-    "
-  >
-    @for (die of [].constructor(diceAmount); track $index) {
-      <die class="w-full aspect-square max-w-[250px]"></die>
-    }
+  <div class="grow">
+    <div
+      class="
+        grid grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))] 
+        justify-items-center gap-4
+        sm:grid-cols-[repeat(auto-fit,_minmax(170px,_1fr))]
+        lg:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] 
+      "
+    >
+      @for (die of [].constructor(diceAmount); track $index) {
+        <die class="w-full aspect-square max-w-[250px]"></die>
+      }
+    </div>
   </div>
 
   <div class="w-full mt-4">
     
     <p-toolbar>
       <ng-template #start>
-      
-        Result:
-
-
       </ng-template>
       <ng-template #end>
         <div class="inline-flex gap-2">

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { DiceRollerComponent } from './dice-roller/dice-roller.component';
 
 export enum AppRoutesEnum {
+  PersonalPage = '',
   DiceRoller = 'dice-roller',
   Error = 'error',
   NotFound = '404',
