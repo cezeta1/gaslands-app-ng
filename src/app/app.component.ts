@@ -1,14 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DarkModeSwitchComponent } from "./core/components/dark-mode-switch/dark-mode-switch.component";
 import { ThemeService } from './core/services/themes/theme.service';
 import { LayoutComponent } from "./core/layout/layout.component";
+import { Toast } from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    LayoutComponent
+    LayoutComponent,
+    Toast
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

@@ -1,8 +1,9 @@
-import { Component, computed, signal, viewChildren } from "@angular/core";
+import { Component, computed, inject, signal, viewChildren } from "@angular/core";
 import { Button } from "primeng/button";
 import { ButtonGroup } from "primeng/buttongroup";
 import { DieComponent } from "./die/die.component";
 import { Toolbar } from "primeng/toolbar";
+import { AlertsService } from "../core/services/alerts/alerts.service";
 
 @Component({
   selector: 'dice-roller',
@@ -16,14 +17,33 @@ import { Toolbar } from "primeng/toolbar";
 })
 export class DiceRollerComponent {
 
-  protected diceAmount = 8;
-  protected dieList = viewChildren(DieComponent);
+  private alertsService = inject(AlertsService);
 
+  private readonly MAX_DICE_AMOUNT = 15;
   private areAllLocked = signal(false);
 
-  protected addDie = () => this.diceAmount += 1;
-  protected removeDie = () => this.diceAmount -= 1;
+  protected dieList = viewChildren(DieComponent);
+  
+  protected diceAmount = 8;
+
+  protected addDie = () =>  {
+    if (this.diceAmount + 1 > this.MAX_DICE_AMOUNT) {
+      this.alertsService.showInfo("Max dice amount reached");
+      return;
+    }
+
+    this.diceAmount += 1;
+  }
+
+  protected removeDie = () => { 
+    this.diceAmount -= 1; 
+
+    if (this.diceAmount <= 0)
+      this.diceAmount = 1;
+  };
+  
   protected rollDice = () => this.dieList().forEach(d => d.roll());
+  
   protected forceLock = () => {
     this.dieList().forEach(d => d.toggleLock(!this.areAllLocked()));
     this.areAllLocked.set(!this.areAllLocked());
