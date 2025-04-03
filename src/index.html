@@ -2,13 +2,25 @@
 <html id="theme-anchor" lang="en" class="min-h-screen">
   <head>
     <meta charset="utf-8">
-    <title>Gaslands Dice Roller</title>
+    <title>Gaslands App</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
   </head>
   
-  <body>
-    <app-root></app-root>
+  <script type="module" defer>
+    import { polyfillCountryFlagEmojis } from "https://cdn.skypack.dev/country-flag-emoji-polyfill";
+    polyfillCountryFlagEmojis();
+  </script>
+  
+  <body 
+    class="
+      h-screen m-0
+      min-h-screen max-h-screen
+      bg-content-background 
+      overflow-hidden
+    "
+  >
+    <app-root class="block min-h-full h-[100vh]"></app-root>
   </body>
 </html>

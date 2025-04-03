@@ -14,14 +14,13 @@
     
     [&>_.p-card-body]:[&>_.p-card-content]:flex
     [&>_.p-card-body]:[&>_.p-card-content]:w-full
-  
   "
   [class.animate-shuffle]="isRolling()"
   (click)="toggleLock()"
 >
 
   @if (isLocked()) {
-    <div class="absolute inset-0 bg-gradient-to-bl from-black/70 to-transparent z-[5]"></div>
+    <div class="absolute inset-0 rounded-xl bg-gradient-to-bl from-black/70 to-transparent z-[5]"></div>
     <p-chip 
       icon="pi pi-lock"
       class="absolute -top-2 -right-2 z-10 shadow-md shadow-black/40" 

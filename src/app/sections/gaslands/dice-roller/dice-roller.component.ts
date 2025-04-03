@@ -1,21 +1,19 @@
-import { Component, computed, inject, signal, viewChildren } from "@angular/core";
+import { Component, inject, signal, viewChildren } from "@angular/core";
 import { Button } from "primeng/button";
 import { ButtonGroup } from "primeng/buttongroup";
 import { DieComponent } from "./die/die.component";
-import { Toolbar } from "primeng/toolbar";
-import { AlertsService } from "../core/services/alerts/alerts.service";
+import { AlertsService } from "../../../core/services/alerts/alerts.service";
 
 @Component({
   selector: 'dice-roller',
   imports: [
     Button,
     ButtonGroup,
-    Toolbar,
     DieComponent,
   ],
   templateUrl: './dice-roller.component.html',
 })
-export class DiceRollerComponent {
+export class DiceRollerComponent { 
 
   private alertsService = inject(AlertsService);
 
@@ -24,7 +22,7 @@ export class DiceRollerComponent {
 
   protected dieList = viewChildren(DieComponent);
   
-  protected diceAmount = 8;
+  protected diceAmount = 15;
 
   protected addDie = () =>  {
     if (this.diceAmount + 1 > this.MAX_DICE_AMOUNT) {

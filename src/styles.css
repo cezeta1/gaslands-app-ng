@@ -1,2 +1,76 @@
-@import "tailwindcss";
+/* CSS Layer Configuration for Tailwind and PrimeNG */
+@layer tailwind-base, primeng;
+
+/* PrimeNG Layer (no need to modify as the imports handle this) */
 @import "primeicons/primeicons.css"; 
+
+/* Base Layer for Tailwind */
+@layer tailwind-base {
+  @import 'tailwindcss';
+}
+
+/* Tailwind Config */
+
+@plugin 'tailwindcss-primeui';
+
+@theme {
+  --color-content-background: var(--p-content-background);
+  --color-content-hover-background: var(--p-content-hover-background);
+  --color-content-border-color: var(--p-content-border-color);
+  --color-content-color: var(--p-content-color);
+  --color-content-hover-color: var(--p-content-hover-color);
+
+  --color-primary-color: var(--p-primary-color);
+  --color-primary-contrast-color: var(--p-primary-contrast-color);
+  --color-primary-hover-color: var(--p-primary-hover-color);
+  --color-primary-active-color: var(--p-primary-active-color);
+  
+  --color-text-color: var(--p-text-color);
+  --color-text-hover-color: var(--p-text-hover-color);
+  --color-text-muted-color: var(--p-text-muted-color);
+  --color-text-hover-muted-color: var(--p-text-hover-muted-color);
+  
+  --color-overlay-select-background: var(--p-overlay-select-background);
+  --color-overlay-select-border-color: var(--p-overlay-select-border-color);
+  --color-overlay-select-color: var(--p-overlay-select-color);
+  
+  --color-overlay-popover-background: var(--p-overlay-popover-background);
+  --color-overlay-popover-border-color: var(--p-overlay-popover-border-color);
+  --color-overlay-popover-color: var(--p-overlay-popover-color);
+  
+  --color-overlay-modal-background: var(--p-overlay-modal-background);
+  --color-overlay-modal-border-color: var(--p-overlay-modal-border-color);
+  --color-overlay-modal-color: var(--p-overlay-modal-color);
+}
+
+body, body * {
+  font-family: "Twemoji Country Flags", "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+body {
+  --sb-thumb-color: var(--p-primary-color);
+  --sb-track-color: var(--p-primary-contrast-color);
+  --sb-size: 10px;
+}
+
+::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--sb-track-color), transparent 40%) ;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: 
+      var(--sb-thumb-color)
+      var(--sb-track-color);
+  }
+}
