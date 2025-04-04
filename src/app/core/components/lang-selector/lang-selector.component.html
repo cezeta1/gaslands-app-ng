@@ -1,0 +1,28 @@
+<p-select
+  styleClass="cz-lang-select-button"
+  [options]="options"
+  [(ngModel)]="selectedLang"
+  optionLabel="name"
+  optionValue="value"
+  (onChange)="onLangChange($event.value)"
+  appendTo="body"
+>
+  <!-- Selected item -->
+  <ng-template let-country #selectedItem>
+    <span class="cz-shadow-flag">
+      {{ country.flag }}
+    </span>
+  </ng-template>
+
+  <!-- Options -->
+  <ng-template let-country #item>
+    <div class="inline-flex align-items-start gap-2">
+      <div>
+        <span class="cz-shadow-flag mr-2">
+          {{ country.flag }}
+        </span> 
+        {{ country.name }}
+      </div>
+    </div>
+  </ng-template>
+</p-select>

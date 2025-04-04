@@ -1,3 +1,13 @@
-<main-layout>
-  <router-outlet />
-</main-layout>
+@if (!env.production) {
+  <p-chip 
+    styleClass="
+      !z-1000 absolute bottom-0 m-2
+      !bg-orange-500 !text-gray-950
+    "
+    label="Development"
+  />
+}
+
+<router-outlet />
+
+<p-toast position="top-left" key="app-alert"/>

@@ -1,0 +1,28 @@
+<p-toolbar
+  styleClass="
+    !relative !z-10 !p-2 !py-2 !rounded-none
+    !border-x-0 !border-t-0 !border-content-hover-background
+    shadow-md
+  "
+>
+  <ng-template #start>
+    <p-avatar 
+      [image]="avatarSrc()"
+      class="mx-2" 
+      size="large" 
+      shape="circle"
+    />
+    
+    <h1 class="text-xl font-bold">Cezeta.</h1>
+  </ng-template>
+  
+  <ng-template #center>
+  </ng-template>
+
+  <ng-template #end>
+    <div class="inline-flex gap-2 items-center justify-center">
+      <lang-selector [transparent]="true"></lang-selector>
+      <dark-mode-switch [rounded]="true"></dark-mode-switch>
+    </div>
+  </ng-template>
+</p-toolbar>

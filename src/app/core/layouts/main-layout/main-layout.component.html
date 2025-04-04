@@ -1,0 +1,28 @@
+<div
+  class="flex flex-col h-full max-h-screen"
+  [ngClass]="{ 'dark-mode': themeService.isDark() }"
+>
+  <nav-bar></nav-bar>
+
+  <div class="flex flex-1 overflow-y-auto">
+    <!-- Main content ribbon -->
+    <div 
+      class="
+        flex flex-col flex-1
+        min-h-fit
+        p-6 mx-8 
+        bg-content-background
+        border-x border-x-content-hover-background
+        shadow-2xl
+      "
+    >
+      <div class="flex-1" >
+        <router-outlet />
+      </div>
+      <footer></footer>
+    </div>
+  </div>
+</div>
+
+<!-- Background -->
+<div class="absolute -z-1000 top-0 left-0 background-pattern"></div>

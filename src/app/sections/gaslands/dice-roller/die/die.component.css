@@ -1,5 +1,4 @@
 .animate-shuffle {
-  position: relative;
   animation: shuffle 0.5s ease-in-out;
 }
 

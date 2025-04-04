@@ -22,7 +22,7 @@ export enum SkidDieFacesEnum {
 })
 export class DieComponent {
 
-  private readonly _skidDiceImgUrls = signal("assets/images/skid-dice/");
+  private readonly _skidDiceImgUrls = signal("assets/images/skid-die/");
   private readonly _dieConfig = {
     values: [
       SkidDieFacesEnum.Shift,

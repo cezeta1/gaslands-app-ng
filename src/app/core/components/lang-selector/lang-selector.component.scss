@@ -1,0 +1,41 @@
+::ng-deep .cz-lang-select-button {
+  
+  overflow: visible;
+  border: 0px;
+  box-shadow: none;
+  background-color: transparent;
+
+  .p-select-dropdown {
+    display: none;
+  }
+
+  .p-select-label {
+    margin: 0rem;
+    padding: -0rem;
+  }
+  
+  .p-select-item {
+    padding: 0.5rem 1rem 
+  }
+
+  .p-select-trigger {
+    display: none;
+  }
+
+  .p-select-label {
+    margin-bottom: -0.2rem;
+    padding: 0rem;
+    text-align: center;
+    vertical-align: middle;
+
+    overflow: visible;
+    
+    // Flag size
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .cz-shadow-flag {
+    text-shadow: var(--p-content-border-color) 0 0 8px;
+  }
+}
