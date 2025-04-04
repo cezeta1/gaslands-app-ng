@@ -22,7 +22,7 @@ export class DiceRollerComponent {
 
   protected dieList = viewChildren(DieComponent);
   
-  protected diceAmount = 15;
+  protected diceAmount = 6;
 
   protected addDie = () =>  {
     if (this.diceAmount + 1 > this.MAX_DICE_AMOUNT) {
