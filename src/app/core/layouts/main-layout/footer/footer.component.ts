@@ -16,9 +16,9 @@ import { TranslatePipe } from "@ngx-translate/core";
   template: `
     <p-divider styleClass="justify-self-center !w-[90%] !my-2" />
 
-    <div class="flex flex-col w-full py-2 text-center *:w-full">
+    <div class="flex flex-col w-full pt-0 pb-10 md:py-2 text-center *:w-full">
       <ng-container *ngTemplateOutlet="socials"></ng-container>
-      <p class="italic text-sm mb-2">Take all your dreams, make your memories</p>
+      <p class="italic text-xs md:text-sm mb-2">Take all your dreams, make your memories</p>
       <p class="text-xs opacity-75">Julián Czerweny - © {{ currentYear }} {{ 'footer.rights' | translate }}</p>
     </div>
 
