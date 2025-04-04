@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/gaslands-app-ng",
+            "outputPath": "dist/browser",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -85,7 +85,7 @@
               "buildTarget": "gaslands-app-ng:build:development"
             },
             "test": {
-              "buildTarget": "nexpay-app-paynowpro:build:test"
+              "buildTarget": "gaslands-app-ng:build:test"
             }
           },
           "defaultConfiguration": "development"
