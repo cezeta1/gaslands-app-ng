@@ -1,0 +1,89 @@
+<div class="flex flex-col gap-4 mb-4">
+  <p-panel  [toggleable]="true" [collapsed]="false">
+    
+    <ng-template #header>
+      Dice Tray 1
+    </ng-template>
+
+    <ng-template #icons></ng-template>
+
+    <div class="w-full mb-4">
+      <ng-container *ngTemplateOutlet="cogMenu"></ng-container>
+    </div>
+
+    <p-divider/>
+
+    <!-- Content -->
+    <div class="grow mb-4">
+      <div
+        class="
+          justify-items-center gap-4
+          grid grid-cols-[repeat(auto-fit,_minmax(120px,_1fr))] 
+          sm:grid-cols-[repeat(auto-fit,_minmax(170px,_1fr))]
+          lg:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] 
+        "
+      >
+        @for (die of [].constructor(diceAmount); track $index) {
+          <die 
+            class="w-full aspect-square max-w-[250px]"
+            [dieColor]="diceColor"
+            [dieType]="selectedDiceType"
+          ></die>
+        }
+      </div>
+    </div>
+
+    <p-divider/>
+
+    <div class="w-full">
+      <ng-container *ngTemplateOutlet="diceMenu"></ng-container>
+    </div>
+  </p-panel>
+</div>
+
+<!-- Templates -->
+
+<ng-template #cogMenu>
+  <p-toolbar styleClass="!border-0 !py-0">
+    <ng-template #start>
+      <p-selectbutton 
+        [options]="diceTypeOptions" 
+        [(ngModel)]="selectedDiceType" 
+        optionLabel="label" 
+        optionValue="value"
+        pTooltip="Change dice type" 
+        tooltipPosition="bottom" 
+      />
+    </ng-template>
+    <ng-template #center></ng-template>
+    <ng-template #end>
+      <div class="inline-flex gap-2">
+        <p-button icon="pi pi-copy" rounded severity="secondary" pTooltip="Copy dice tray" tooltipPosition="bottom" />
+        <p-button icon="pi pi-trash" rounded severity="secondary" pTooltip="Remove dice tray" tooltipPosition="bottom" />
+      </div>
+    </ng-template>
+  </p-toolbar>
+</ng-template>
+
+<ng-template #diceMenu>
+  <p-toolbar styleClass="!border-0 !py-0">
+    <ng-template #start>
+      <p-colorpicker [(ngModel)]="diceColor" />
+    </ng-template>
+    <ng-template #center></ng-template>
+    <ng-template #end>
+      <div class="inline-flex items-center gap-4">
+        <p-button icon="pi pi-lock" rounded severity="secondary" (onClick)="forceLock()"></p-button>
+        <!-- pi-lock-open -->
+
+        <p-buttongroup rounded severity="secondary">
+          <p-button icon="pi pi-minus" rounded (onClick)="removeDie()"></p-button>
+          <p-button icon="pi pi-plus" rounded (onClick)="addDie()"></p-button>
+        </p-buttongroup>
+    
+        <p-button label="Roll" icon="pi pi-clone" rounded  pTooltip="Roll all dice" (onClick)="rollDice()" [disabled]="areAllLocked()"></p-button>
+      </div>
+    </ng-template>
+  </p-toolbar>
+</ng-template>
+

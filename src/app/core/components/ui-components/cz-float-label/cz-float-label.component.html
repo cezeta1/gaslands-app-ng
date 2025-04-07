@@ -1,0 +1,11 @@
+<p-floatLabel class="w-full">
+
+  <ng-content></ng-content>
+  
+  @if (!!labelText()) {
+    <label class="max-w-[90%] text-ellipsis whitespace-nowrap">
+      {{ labelText() + (showRequiredDot() ? ' *' : '') }}
+    </label>
+  }
+
+</p-floatLabel>

@@ -1,17 +1,17 @@
+import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withHashLocation } from '@angular/router';
-import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 
-import { providePrimeNG } from 'primeng/config';
 import { MessageService } from 'primeng/api';
+import { providePrimeNG } from 'primeng/config';
 import { ToastModule } from 'primeng/toast';
 import { primeNGThemeConfig } from './primeng-theme.config';
 
-import { routes } from './app.routes';
-import { CZMissingTranslationHandler } from './core/services/language/cz-missing-translation.handler';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { routes } from './app.routes';
+import { CZMissingTranslationHandler } from './core/services/language/cz-missing-translation.handler';
 
 const httpLoaderFactory: (http: HttpClient) => 
   TranslateHttpLoader = (http: HttpClient) =>

@@ -1,6 +1,6 @@
-import { PrimeNGConfigType } from "primeng/config";
 import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
+import { PrimeNGConfigType } from "primeng/config";
 
 const AuraBlue = definePreset(Aura, {
   semantic: {

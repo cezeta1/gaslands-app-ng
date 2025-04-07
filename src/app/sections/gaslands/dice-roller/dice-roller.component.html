@@ -9,29 +9,10 @@
     Gaslands Skid Dice Roller
   </h1>
 
-  <div class="grow mb-4">
-    <div
-      class="
-        justify-items-center gap-4
-        grid grid-cols-[repeat(auto-fit,_minmax(120px,_1fr))] 
-        sm:grid-cols-[repeat(auto-fit,_minmax(170px,_1fr))]
-        lg:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] 
-      "
-    >
-      @for (die of [].constructor(diceAmount); track $index) {
-        <die class="w-full aspect-square max-w-[250px]"></die>
-      }
-    </div>
-  </div>
-
-  <div class="inline-flex w-full p-2 justify-end items-center gap-4">
-    <p-button icon="pi pi-lock" (onClick)="forceLock()"></p-button>
-    
-    <p-buttongroup>
-      <p-button icon="pi pi-minus" (onClick)="removeDie()"></p-button>
-      <p-button icon="pi pi-plus" (onClick)="addDie()"></p-button>
-    </p-buttongroup>
-
-    <p-button label="Roll" icon="pi pi-clone" (onClick)="rollDice()"></p-button>
+  <div class="flex w-full justify-between flex-wrap gap-4">
+    <dice-tray></dice-tray>
+    <dice-tray></dice-tray>
+    <dice-tray></dice-tray>
+    <dice-tray></dice-tray>
   </div>
 </div>

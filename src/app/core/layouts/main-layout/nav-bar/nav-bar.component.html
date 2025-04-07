@@ -1,19 +1,21 @@
 <p-toolbar
   styleClass="
-    !relative !z-10 !p-2 !py-2 !rounded-none
-    !border-x-0 !border-t-0 !border-content-hover-background
+    !relative !z-10 !p-2 !rounded-none
+    !border-x-0 !border-t-0
     shadow-md
   "
 >
   <ng-template #start>
-    <p-avatar 
-      [image]="avatarSrc()"
-      class="mx-2" 
-      size="large" 
-      shape="circle"
-    />
-    
-    <h1 class="text-xl font-bold">Cezeta.</h1>
+    <div class="inline-flex items-center" (click)="goHome()">
+      <p-avatar
+        [image]="avatarSrc()"
+        class="mx-2" 
+        size="large" 
+        shape="circle"
+      />
+      
+      <h1 class="text-xl font-bold">Cezeta.</h1>
+    </div>
   </ng-template>
   
   <ng-template #center>
@@ -26,3 +28,33 @@
     </div>
   </ng-template>
 </p-toolbar>
+
+@if (showTabs()) {
+  <p-tabs [value]="router.url">
+    <p-tablist 
+      class=" 
+        [&>_.p-tablist-content]:!border-b
+        [&>_.p-tablist-content]:!border-toolbar-border-color
+        [&>_.p-tablist-content]:!inline-flex
+        [&>_.p-tablist-content]:!justify-center
+        [&>_.p-tablist-content]:!bg-content-hover-background
+        [&>_.p-tablist-content]:!shadow-md
+
+        [&>_.p-tablist-content]:[&>_.p-tablist-tab-list]:[&>_.p-tablist-active-bar]:!h-[2px]
+      "
+    >
+      @for(tab of tabs(); track tab.route) {
+        <p-tab 
+          class="
+            !py-1 !bg-content-hover-background !border-b-0
+          " 
+          [value]="'/'+tab.route" 
+          [routerLink]="'/'+tab.route"
+        >
+          <i [class]="'pi ' + tab.icon"></i>
+          <span>{{ tab.label | translate }}</span>
+        </p-tab>
+      }
+    </p-tablist>
+  </p-tabs>
+}

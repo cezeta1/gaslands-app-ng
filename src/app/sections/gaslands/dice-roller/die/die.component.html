@@ -1,8 +1,16 @@
 <div class="aspect-square" [class.animate-shuffle]="isRolling()">
-  <p-card 
-    styleClass="
+  
+  @let colorClass = '!bg-(--die-comp-color)';
+<!-- 
+  @let colorClass = dieColor() !== '' 
+    ? '!bg-(--die-comp-color)'
+    : '!bg-neutral-300'; -->
+
+  <p-card
+    [ngClass]="colorClass"
+    [styleClass]="`
       relative w-full h-full
-      !bg-neutral-300 !text-black
+      !text-black ${colorClass}
   
       [&>_.p-card-body]:w-full
       [&>_.p-card-body]:h-full
@@ -12,7 +20,7 @@
       
       [&>_.p-card-body]:[&>_.p-card-content]:flex
       [&>_.p-card-body]:[&>_.p-card-content]:w-full
-    "
+    `"
     (click)="toggleLock()"
   >
   

@@ -1,3 +1,7 @@
+:host {
+  --die-comp-color: var(--p-neutral-300);
+}
+
 .animate-shuffle {
   animation: shuffle 0.5s ease-in-out;
 }
