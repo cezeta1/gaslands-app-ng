@@ -34,7 +34,7 @@ export class DiceTrayComponent {
   private alertsService = inject(AlertsService);
   private dieList = viewChildren(DieComponent);
   
-  protected diceColor = "";
+  protected diceColor = "#d4d4d4";
   
   protected diceTypeOptions = [
     { label: 'Skid', value: 'skid' },

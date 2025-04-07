@@ -1,10 +1,6 @@
 <div class="aspect-square" [class.animate-shuffle]="isRolling()">
   
   @let colorClass = '!bg-(--die-comp-color)';
-<!-- 
-  @let colorClass = dieColor() !== '' 
-    ? '!bg-(--die-comp-color)'
-    : '!bg-neutral-300'; -->
 
   <p-card
     [ngClass]="colorClass"
