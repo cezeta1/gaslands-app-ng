@@ -5,6 +5,7 @@ import { Card } from "primeng/card";
 import { Chip } from 'primeng/chip';
 import { Image } from "primeng/image";
 import { cz_takeUntilDestroyed } from "../../../../core/utils";
+import { DieConfigCollection, DieTypesEnum } from "./die-config";
 
 export enum SkidDieFacesEnum {
   Shift = "Shift",
@@ -28,30 +29,32 @@ export class DieComponent {
   private _inj = inject(Injector);
   private _elementRef = inject(ElementRef);
 
-  private readonly _skidDiceImgUrls = signal("assets/images/skid-die/");
-  private readonly _dieConfig = {
-    values: [
-      SkidDieFacesEnum.Shift,
-      SkidDieFacesEnum.Shift,
-      SkidDieFacesEnum.Shift,
-      SkidDieFacesEnum.Hazard,
-      SkidDieFacesEnum.Spin,
-      SkidDieFacesEnum.Slide
-    ],
+  private _currentConfig = computed(() => DieConfigCollection[this.dieType()]);
 
-    faces: {
-      [SkidDieFacesEnum.Shift]: `${this._skidDiceImgUrls()}shift.png`,
-      [SkidDieFacesEnum.Hazard]: `${this._skidDiceImgUrls()}hazard.png`,
-      [SkidDieFacesEnum.Slide]: `${this._skidDiceImgUrls()}slide.png`,
-      [SkidDieFacesEnum.Spin]: `${this._skidDiceImgUrls()}spin.png`,
-    }
-  }
+  // private readonly _skidDiceImgUrls = signal("assets/images/skid-die/");
+  // private readonly _dieConfig = {
+  //   values: [
+  //     SkidDieFacesEnum.Shift,
+  //     SkidDieFacesEnum.Shift,
+  //     SkidDieFacesEnum.Shift,
+  //     SkidDieFacesEnum.Hazard,
+  //     SkidDieFacesEnum.Spin,
+  //     SkidDieFacesEnum.Slide
+  //   ],
+
+  //   faces: {
+  //     [SkidDieFacesEnum.Shift]: `${this._skidDiceImgUrls()}shift.png`,
+  //     [SkidDieFacesEnum.Hazard]: `${this._skidDiceImgUrls()}hazard.png`,
+  //     [SkidDieFacesEnum.Slide]: `${this._skidDiceImgUrls()}slide.png`,
+  //     [SkidDieFacesEnum.Spin]: `${this._skidDiceImgUrls()}spin.png`,
+  //   }
+  // }
 
   protected isRolling = signal<boolean>(false);
   protected isLocked = signal<boolean>(false);
 
-  protected currentValueEnum = computed(() => this._dieConfig.values[this.currentValue()]);
-  protected currentFace = computed(() => this._dieConfig.faces[this.currentValueEnum()]);
+  protected currentValueEnum = computed(() => this._currentConfig().valueDistribution[this.currentValue()]);
+  protected currentFace = computed(() => this._currentConfig().faceMap[this.currentValueEnum()]);
   
   ngOnInit(): void {
     toObservable(this.dieColor, { injector: this._inj })
@@ -62,7 +65,7 @@ export class DieComponent {
   // --- Public --- //
 
   public dieColor = input<string>("neutral-300");
-  public dieType = input<string>('');
+  public dieType = input<DieTypesEnum>(DieTypesEnum.Skid);
   
   public currentValue = signal<number>(0);
   
@@ -86,6 +89,7 @@ export class DieComponent {
     if (newColor == '')
       return;
 
-    this._elementRef.nativeElement.style.setProperty('--die-comp-color', newColor);
+    this._elementRef.nativeElement.style
+      .setProperty('--die-comp-color', newColor);
   }
 }

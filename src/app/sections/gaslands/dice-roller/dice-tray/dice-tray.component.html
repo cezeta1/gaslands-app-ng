@@ -1,8 +1,8 @@
 <div class="flex flex-col gap-4 mb-4">
-  <p-panel  [toggleable]="true" [collapsed]="false">
+  <p-panel  [toggleable]="true" [collapsed]="config.collapsed" (collapsedChange)="onCollapse($event)">
     
     <ng-template #header>
-      Dice Tray 1
+      {{ config.name }}
     </ng-template>
 
     <ng-template #icons></ng-template>
@@ -18,15 +18,15 @@
       <div
         class="
           justify-items-center gap-4
-          grid grid-cols-[repeat(auto-fit,_minmax(120px,_1fr))] 
-          sm:grid-cols-[repeat(auto-fit,_minmax(170px,_1fr))]
-          lg:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] 
+          grid grid-cols-[repeat(auto-fit,_minmax(90px,_1fr))] 
+          sm:grid-cols-[repeat(auto-fit,_minmax(120px,_1fr))]
+          lg:grid-cols-[repeat(auto-fit,_minmax(120px,_1fr))] 
         "
       >
-        @for (die of [].constructor(diceAmount); track $index) {
+        @for (die of [].constructor(config.diceAmount); track $index) {
           <die 
             class="w-full aspect-square max-w-[250px]"
-            [dieColor]="diceColor"
+            [dieColor]="config.color ?? ''"
             [dieType]="selectedDiceType"
           ></die>
         }
@@ -68,7 +68,7 @@
 <ng-template #diceMenu>
   <p-toolbar styleClass="!border-0 !py-0">
     <ng-template #start>
-      <p-colorpicker [(ngModel)]="diceColor" />
+      <p-colorpicker [(ngModel)]="config.color" />
     </ng-template>
     <ng-template #center></ng-template>
     <ng-template #end>
@@ -81,7 +81,14 @@
           <p-button icon="pi pi-plus" rounded (onClick)="addDie()"></p-button>
         </p-buttongroup>
     
-        <p-button label="Roll" icon="pi pi-clone" rounded  pTooltip="Roll all dice" (onClick)="rollDice()" [disabled]="areAllLocked()"></p-button>
+        <p-button 
+          rounded
+          label="Roll" 
+          icon="pi pi-clone" 
+          pTooltip="Roll all dice" 
+          [disabled]="areAllLocked()"
+          (onClick)="rollDice()" 
+        ></p-button>
       </div>
     </ng-template>
   </p-toolbar>

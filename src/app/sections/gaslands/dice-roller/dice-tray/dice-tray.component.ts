@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, signal, viewChildren } from "@angular/core";
+import { Component, inject, Injector, model, OnInit, signal, viewChildren } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { Button } from "primeng/button";
 import { ButtonGroup } from "primeng/buttongroup";
@@ -11,6 +11,10 @@ import { Toolbar } from "primeng/toolbar";
 import { TooltipModule } from 'primeng/tooltip';
 import { AlertsService } from "../../../../core/services/alerts/alerts.service";
 import { DieComponent } from "../die/die.component";
+import { DiceTrayConfig } from "./dice-tray.config";
+import { toObservable } from "@angular/core/rxjs-interop";
+import { cz_takeUntilDestroyed } from "../../../../core/utils";
+import { DieTypesEnum } from "../die/die-config";
 
 @Component({
   selector: 'dice-tray',
@@ -29,45 +33,88 @@ import { DieComponent } from "../die/die.component";
   ],
   templateUrl: './dice-tray.component.html'
 })
-export class DiceTrayComponent {
-  
-  private alertsService = inject(AlertsService);
-  private dieList = viewChildren(DieComponent);
-  
-  protected diceColor = "#d4d4d4";
-  
-  protected diceTypeOptions = [
-    { label: 'Skid', value: 'skid' },
-    { label: 'd6', value: 'd6' }
-  ];
-  protected selectedDiceType = "skid";
+export class DiceTrayComponent implements OnInit {
 
-  protected diceAmount = 4;
-  protected areAllLocked = signal(false);
+  // --- DI --- //
+
+  private _inj = inject(Injector);
+  private _alertsService = inject(AlertsService);
+  private _dieList = viewChildren(DieComponent);
   
   private readonly MAX_DICE_AMOUNT = 15;
   
-  // --- Methods --- //
+  // --- Inputs --- //
+
+  public inputConfig = model<DiceTrayConfig>(this._defaultConfig(), { alias: 'config' });
+  
+  // --- Internal Variables --- //
+
+  protected config = this._defaultConfig();
+
+  protected diceTypeOptions = [
+    { label: 'Skid', value: DieTypesEnum.Skid },
+    { label: 'd6', value: DieTypesEnum.D6 }
+  ];
+  protected selectedDiceType = DieTypesEnum.D6;
+
+  protected areAllLocked = signal(false);
+  
+  // --- Ng Methods --- //
+
+  ngOnInit(): void {
+    toObservable(this.inputConfig, { injector: this._inj })
+      .pipe(cz_takeUntilDestroyed(this._inj))
+      .subscribe(_ => {
+        this.config = {
+          ...this._defaultConfig(),
+          ...this.inputConfig() 
+        };
+      });
+  }
+
+  // --- Protected Methods --- //
+
+  protected onCollapse(isCollapsed: any) {
+    this.config = {
+      ...this.config,
+      collapsed: isCollapsed
+    };
+    this.inputConfig.set(this.config);
+  }
 
   protected addDie = () =>  {
-    if (this.diceAmount + 1 > this.MAX_DICE_AMOUNT) {
-      this.alertsService.showInfo("Max dice amount reached");
+    if (this.config.diceAmount + 1 > this.MAX_DICE_AMOUNT) {
+      this._alertsService.showInfo("Max dice amount reached");
       return;
     }
-    this.diceAmount += 1;
+    this.config.diceAmount += 1;
   }
 
   protected removeDie = () => { 
-    this.diceAmount -= 1; 
+    this.config.diceAmount -= 1; 
 
-    if (this.diceAmount <= 0)
-      this.diceAmount = 1;
+    if (this.config.diceAmount <= 0)
+      this.config.diceAmount = 1;
   };
   
-  protected rollDice = () => this.dieList().forEach(d => d.roll());
-  
+  protected rollDice = () => 
+    this._dieList().forEach(d => d.roll()); 
+
   protected forceLock = () => {
-    this.dieList().forEach(d => d.toggleLock(!this.areAllLocked()));
+    this._dieList().forEach(d => d.toggleLock(!this.areAllLocked()));
     this.areAllLocked.set(!this.areAllLocked());
+  }
+
+  // --- Private and Defaults --- //
+
+  private _defaultConfig(): DiceTrayConfig {
+    return ({
+      name: "Dice Tray",
+      type: DieTypesEnum.Skid,
+      color: "#d4d4d4",
+      collapsed: false,
+      
+      diceAmount: 4,
+    });
   }
 }
