@@ -15,6 +15,7 @@ import { DiceTrayConfig } from "./dice-tray.config";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { cz_takeUntilDestroyed } from "../../../../core/utils";
 import { DieTypesEnum } from "../die/die-config";
+import { reduce } from "lodash-es";
 
 @Component({
   selector: 'dice-tray',
@@ -51,12 +52,15 @@ export class DiceTrayComponent implements OnInit {
 
   protected config = this._defaultConfig();
 
-  protected diceTypeOptions = [
-    { label: 'Skid', value: DieTypesEnum.Skid },
-    { label: 'd6', value: DieTypesEnum.D6 }
-  ];
-  protected selectedDiceType = DieTypesEnum.D6;
+  protected diceTypeOptions = reduce(
+    Object.keys(DieTypesEnum),
+    (r, v) => isNaN(Number(v)) 
+      ? [...r, { label: v, value: DieTypesEnum[v as keyof typeof DieTypesEnum] }]
+      : r,
+    [] as { label: string, value: DieTypesEnum }[]
+  );
 
+  protected selectedDiceType = DieTypesEnum.D6;
   protected areAllLocked = signal(false);
   
   // --- Ng Methods --- //
