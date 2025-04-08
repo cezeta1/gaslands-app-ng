@@ -1,0 +1,5 @@
+@if (!!currentMessage()) {
+  <div class="mt-2 ml-2 max-w-full text-wrap text-sm text-[#fca5a5]">
+    {{ currentMessage() | translate:{ data: messagePayload } }}
+  </div>
+}

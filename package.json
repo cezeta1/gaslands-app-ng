@@ -1,9 +1,10 @@
 {
   "name": "gaslands-app-ng",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve",    
+    "prebuild": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

@@ -1,28 +1,35 @@
 <div
-  class="flex flex-col h-full max-h-screen"
+  class="flex flex-col h-full max-h-screen w-full max-w-screen"
   [ngClass]="{ 'dark-mode': themeService.isDark() }"
 >
   <nav-bar></nav-bar>
 
-  <div class="flex flex-1 overflow-y-auto">
+  <div class="flex flex-1 w-full max-w-screen overflow-y-auto">
     <!-- Main content ribbon -->
     <div 
       class="
+        relative
         flex flex-col flex-1
-        min-h-fit
-        p-6 mx-0 sm:mx-8 lg:mx-16
+        w-full min-h-fit
+        p-6 mx-0 sm:mx-8 lg:mx-12
         bg-content-background
         border-x border-x-content-hover-background
         shadow-2xl
+
+        pb-40 sm:pb-6
       "
     >
-      <div class="flex-1" >
+      <div class="flex-1">
         <router-outlet />
       </div>
-      <footer></footer>
+      <footer class="pt-0"></footer>
+      <span class="absolute bottom-2 right-3 self-end text-muted-color opacity-20 text-xs">
+        Version: {{ LIB_VERSION }}
+      </span>
     </div>
+    <p-scrolltop class="absolute bottom-6 right-6" target="parent" [buttonProps]="{ raised: true, rounded: true }"/>
   </div>
 </div>
 
 <!-- Background -->
-<div class="absolute -z-1000 top-0 left-0 background-pattern"></div>
+<div class="absolute -z-1000 top-0 left-0 background-pattern min-h-screen"></div>

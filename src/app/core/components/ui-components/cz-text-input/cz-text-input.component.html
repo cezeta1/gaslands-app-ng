@@ -1,0 +1,32 @@
+<div [formGroup]="internalForm" class="inline-flex w-full">
+  <cz-float-label
+    class="w-full"
+    [showRequiredDot]="showRequiredDot() && isRequired"
+    [labelText]="floatLabel()"
+  >
+    <input pInputText
+      class="w-full"
+      type="text" 
+      [formControlName]="formCtrlName"
+    >
+  </cz-float-label>
+
+  <!-- <cz-tooltip-badge 
+    class="ml-2 content-center"
+    *ngIf="!!tooltip()" 
+    [text]="tooltip() ?? ''"
+  ></cz-tooltip-badge> -->
+</div>
+
+@if (showErrorMessage()) {
+  <cz-form-error-message 
+    [form]="ctrl"
+    [label]="floatLabel() ?? ''"
+  ></cz-form-error-message>
+}
+
+@if (!!helpText()) {
+  <div class="mt-2 ml-2 max-w-full text-wrap">
+    <small>{{ helpText() }}</small>
+  </div> 
+}

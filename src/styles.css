@@ -41,6 +41,8 @@
   --color-overlay-modal-background: var(--p-overlay-modal-background);
   --color-overlay-modal-border-color: var(--p-overlay-modal-border-color);
   --color-overlay-modal-color: var(--p-overlay-modal-color);
+
+  --color-toolbar-border-color: var(--p-toolbar-border-color);
 }
 
 body, body * {

@@ -1,49 +1,56 @@
-import { Component, inject, signal, viewChildren } from "@angular/core";
+import { Component } from "@angular/core";
+import { DiceTrayComponent } from "./dice-tray/dice-tray.component";
+import { Toolbar } from "primeng/toolbar";
 import { Button } from "primeng/button";
-import { ButtonGroup } from "primeng/buttongroup";
-import { DieComponent } from "./die/die.component";
-import { AlertsService } from "../../../core/services/alerts/alerts.service";
+import { CommonModule } from "@angular/common";
+import { Tooltip } from "primeng/tooltip";
+import { DiceTrayConfig } from "./dice-tray/dice-tray.config";
 
 @Component({
   selector: 'dice-roller',
-  imports: [
-    Button,
-    ButtonGroup,
-    DieComponent,
-  ],
+  imports: [ CommonModule, Toolbar, Button, Tooltip, DiceTrayComponent ],
   templateUrl: './dice-roller.component.html',
 })
-export class DiceRollerComponent { 
+export class DiceRollerComponent {
 
-  private alertsService = inject(AlertsService);
-
-  private readonly MAX_DICE_AMOUNT = 15;
-  private areAllLocked = signal(false);
-
-  protected dieList = viewChildren(DieComponent);
-  
-  protected diceAmount = 6;
-
-  protected addDie = () =>  {
-    if (this.diceAmount + 1 > this.MAX_DICE_AMOUNT) {
-      this.alertsService.showInfo("Max dice amount reached");
-      return;
+  protected diceTrayConfigs: DiceTrayConfig[] = [ 
+    {
+      name: "Dice Tray 1",
+      collapsed: false,
+      diceAmount: 4
+    },
+    {
+      name: "Dice Tray 2",
+      diceAmount: 3
+    },
+    {
+      name: "Dice Tray 3",
+      diceAmount: 2
+    },
+    {
+      name: "Dice Tray 4",
+      diceAmount: 2
     }
+  ];
 
-    this.diceAmount += 1;
+  protected allCollapsed = false;
+
+  // --- Methods --- //
+
+  protected minimizeAll() {
+    this.diceTrayConfigs = this.diceTrayConfigs
+      .map(c => ({...c, collapsed: true }));
+    this.allCollapsed = true;
+  }
+  
+  protected maximizeAll() {
+    this.diceTrayConfigs = this.diceTrayConfigs
+    .map(c => ({...c, collapsed: false }));
+    this.allCollapsed = false;
   }
 
-  protected removeDie = () => { 
-    this.diceAmount -= 1; 
-
-    if (this.diceAmount <= 0)
-      this.diceAmount = 1;
-  };
-  
-  protected rollDice = () => this.dieList().forEach(d => d.roll());
-  
-  protected forceLock = () => {
-    this.dieList().forEach(d => d.toggleLock(!this.areAllLocked()));
-    this.areAllLocked.set(!this.areAllLocked());
+  protected updateAllCollapsedStatus() {
+    this.allCollapsed = this.diceTrayConfigs
+      .every(c => c.collapsed);
   }
 }
