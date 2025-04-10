@@ -39,5 +39,5 @@ export class NavBarComponent {
     // { route: AppRoutesEnum.Projects, label: 'projects.title',  icon: 'pi-star' }
   ]);
 
-  protected goHome = () => this.router.navigate(['./']);
+  protected goHome = () => this.router.navigate(['https://cezeta1.github.io/']);
 }
