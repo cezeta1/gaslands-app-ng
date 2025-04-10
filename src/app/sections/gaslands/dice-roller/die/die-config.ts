@@ -51,12 +51,12 @@ const D6DieConfig: DieConfig<number> = {
   valueDistribution: [ 0, 1, 2, 3, 4, 5 ],
 
   faceMap: {
-    0: `assets/images/d6/dice-six-faces-one.png`,
-    1: `assets/images/d6/dice-six-faces-two.png`,
-    2: `assets/images/d6/dice-six-faces-three.png`,
-    3: `assets/images/d6/dice-six-faces-four.png`,
-    4: `assets/images/d6/dice-six-faces-five.png`,
-    5: `assets/images/d6/dice-six-faces-six.png`,
+    0: `assets/images/d6/one.png`,
+    1: `assets/images/d6/two.png`,
+    2: `assets/images/d6/three.png`,
+    3: `assets/images/d6/four.png`,
+    4: `assets/images/d6/five.png`,
+    5: `assets/images/d6/six.png`,
   }
 };
 
