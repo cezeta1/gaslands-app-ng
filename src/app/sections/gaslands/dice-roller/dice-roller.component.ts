@@ -13,6 +13,12 @@ import { DiceTrayConfig } from "./dice-tray/dice-tray.config";
 })
 export class DiceRollerComponent {
 
+  private defaultConfig: DiceTrayConfig =
+  {
+    name: "Dice Tray",
+    diceAmount: 2
+  };
+
   protected diceTrayConfigs: DiceTrayConfig[] = [ 
     {
       name: "Dice Tray 1",
@@ -25,10 +31,6 @@ export class DiceRollerComponent {
     },
     {
       name: "Dice Tray 3",
-      diceAmount: 2
-    },
-    {
-      name: "Dice Tray 4",
       diceAmount: 2
     }
   ];
@@ -53,4 +55,18 @@ export class DiceRollerComponent {
     this.allCollapsed = this.diceTrayConfigs
       .every(c => c.collapsed);
   }
+
+  protected onNewTray() {
+    this.diceTrayConfigs = [
+      {... this.defaultConfig },
+      ...this.diceTrayConfigs
+    ];
+  }
+
+  protected onDeleteTray = (i: number) => 
+    this.diceTrayConfigs.splice(i,1);
+
+  protected onCopyTray = (i: number) =>
+    this.diceTrayConfigs.splice(i, 0, this.diceTrayConfigs[i]);
+
 }

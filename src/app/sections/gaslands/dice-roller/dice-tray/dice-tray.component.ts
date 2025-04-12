@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, Injector, model, OnInit, signal, viewChildren } from "@angular/core";
+import { Component, inject, Injector, model, OnInit, output, signal, viewChildren } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { Button } from "primeng/button";
 import { ButtonGroup } from "primeng/buttongroup";
@@ -44,9 +44,11 @@ export class DiceTrayComponent implements OnInit {
   
   private readonly MAX_DICE_AMOUNT = 15;
   
-  // --- Inputs --- //
+  // --- Inputs/Outputs --- //
 
   public inputConfig = model<DiceTrayConfig>(this._defaultConfig(), { alias: 'config' });
+  public onDeleteSelf = output<void>();
+  public onCopySelf = output<void>();
   
   // --- Internal Variables --- //
 
@@ -108,6 +110,9 @@ export class DiceTrayComponent implements OnInit {
     this._dieList().forEach(d => d.toggleLock(!this.areAllLocked()));
     this.areAllLocked.set(!this.areAllLocked());
   }
+
+  protected onDelete = () => this.onDeleteSelf.emit();
+  protected onCopy = () => this.onCopySelf.emit();
 
   // --- Private and Defaults --- //
 
