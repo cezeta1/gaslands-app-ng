@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AppRoutesEnum } from '../../app.routes';
 import { DiceRollerComponent } from './dice-roller/dice-roller.component';
 
 export enum GaslandsRoutesEnum {
@@ -7,14 +6,11 @@ export enum GaslandsRoutesEnum {
 }
 
 export const sectionRoutes: Routes = [
-  
-  { path: '', redirectTo: GaslandsRoutesEnum.Main, pathMatch: 'full' },
 
   // --- Content --- //
-  
-  { path: GaslandsRoutesEnum.Main, component: DiceRollerComponent },
 
-  // --- Wildcard --- //
-  
-  { path: '**', redirectTo: AppRoutesEnum.NotFound }
+  { path: GaslandsRoutesEnum.Main, component: DiceRollerComponent, pathMatch: 'full' },
+
+  // No wildcard here: this section is mounted at the app root, so unknown
+  // paths must fall through to the app-level routes (not-found, error).
 ]
