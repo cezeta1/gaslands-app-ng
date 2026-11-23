@@ -1,7 +1,7 @@
 import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter, withHashLocation } from '@angular/router';
+import { provideRouter } from '@angular/router';
 
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
@@ -23,7 +23,6 @@ export const appConfig: ApplicationConfig = {
     
     provideRouter(
       routes,
-      withHashLocation()
       // withNavigationErrorHandler((e: NavigationError) => 
       //   inject(AppErrorHandler).handleNavigationError(e))
     ),
