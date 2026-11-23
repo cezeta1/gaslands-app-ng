@@ -19,18 +19,20 @@ export enum AppRoutesEnum {
 // =========================================================== //
 
 export const routes: Routes = [
-  // --- Home route --- //
-  
-  { path: '', redirectTo: AppRoutesEnum.Gaslands, pathMatch: 'full' },
-  
   // --- Sections --- //
+  // Gaslands is served at the app root (gaslands.cezeta.net).
+  // Its routes have no wildcard, so unmatched paths fall through to the routes below.
 
   {
-    path: AppRoutesEnum.Gaslands,
+    path: '',
     component: MainLayoutComponent,
     loadChildren: () => import('./sections/gaslands/gaslands.routes').then(m => m.sectionRoutes)
   },
-  
+
+  // --- Legacy URLs --- //
+
+  { path: AppRoutesEnum.Gaslands, redirectTo: '', pathMatch: 'full' },
+
   // --- Extra Routes --- //
 
   {
@@ -41,8 +43,8 @@ export const routes: Routes = [
       { path: AppRoutesEnum.NotFound, component: PageNotFoundComponent }
     ]
   },
-  
+
   // --- Wildcard --- //
-  
+
   { path: '**', redirectTo: AppRoutesEnum.NotFound },
 ];

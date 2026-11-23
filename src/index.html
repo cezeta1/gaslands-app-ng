@@ -6,6 +6,10 @@
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script>
+      // Legacy hash URLs (/#/gaslands) → path URLs (/gaslands), before Angular boots
+      if (location.hash.startsWith('#/')) history.replaceState(null, '', location.hash.slice(1));
+    </script>
   </head>
   
   <script type="module" defer>
