@@ -1,47 +1,49 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Build & Deploy Pages
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [ main, dev ]
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
-    name: Build project
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: node
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
-          registry-url: https://registry.npmjs.org
-      - name: Build project
-        run: |
-          npm ci
-          npm run build
-      - name: Copy dist folder
-        env:
-          SRC_FOLDER_PATH: 'dist/browser'
-          TARGET_BRANCH: 'gh-pages'
-        run: |
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
-          git fetch                         # fetch branches
-          git checkout $TARGET_BRANCH       # checkout to your branch
-          shopt -s extglob        # Enable extended globbing
-          rm -rf !(dist)          # Delete everything except 'dist' folder
-          cp -r dist/browser/* .  # Copy contents from dist/browser to current directory
-          rm -rf dist             # Delete everything 'dist' folder
-          git add -A
-          git diff-index --quiet HEAD ||  git commit -am "deploy files"  # commit to the repository (ignore if no modification)
-          git push origin $TARGET_BRANCH # push to remote branch
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist/browser
+
+  deploy:
+    name: Deploy
+    needs: build
+    # Only deploy from main, never from PRs or manual runs on other branches
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
